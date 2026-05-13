@@ -21,7 +21,7 @@ W AIpace uczymy się nie tylko technologii, ale też współpracy zespołowej i 
 
 Poniżej znajduje się lista warsztatów dostępnych w repozytorium:
 
-1. [Wprowadzenie do lokalnych LLM z Ollamą](./workshops/local-llm-ollama/README.md)
+1. [Wprowadzenie do lokalnych LLM z Ollamą](https://github.com/AIpakaCharlie/workshops/tree/master/1%20Wprowadzenie%20do%20lokalnych%20LLM%20z%20Ollam%C4%85)
 
 W kolejnych etapach repozytorium będą dodawane następne warsztaty i materiały.
 
