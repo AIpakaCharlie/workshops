@@ -85,7 +85,7 @@ Po zainstalowaniu Ollamy otwórz terminal i wpisz:
 ollama pull gemma4:e4b
 ```
 
-Pobranie może potrwać kilka minut. model waży kilka GB, ale wystarczy zrobić to tylko raz.
+Pobranie może potrwać kilka minut. Model waży kilka GB, ale wystarczy zrobić to tylko raz.
 
 Aby sprawdzić, czy wszystko działa poprawnie, uruchom:
 
@@ -95,17 +95,29 @@ ollama run gemma4:e4b
 
 Jeśli zobaczysz znak zachęty `>>>`, możesz zacząć rozmowę z modelem. Aby zakończyć, użyj `Ctrl+D`, lub wpisz //bye
 
-### 4. Zainstaluj wymagane biblioteki Pythona
+### 4. Konfiguracja pythona i uruchamianie notatników
+Jeżeli masz w systemie wgrany notatnik jupyter i bezprośrednio przez niego chcesz uruchamiać pliki, możesz przejść do podpunktu 5
 
-Upewnij się, że masz zainstalowanego Pythona w wersji 3.10 lub nowszej:
+Mozesz sprawdzić czy masz zainstalowany jupiter w systemie:
+```
+jupyter notebook --version
+```
+
+### 4.1 Tworzenie środowiska wirtualnego (opcjonalnie)
+Jeżeli wolisz uruchamiać notatniki przez środowisko wirtualne lub w swoim IDE to zalecane jest  utworzenie środowistka wirtualnego 
+Dzięki temu wszystkie pakiety zainstalują się tylko dla tego projektu, a nie globalnie w systemie.
+
+*IDE (np. Pycharm) często tworzą automatycznie środowiska wirualne. Aby sprawdzić czy jest zrobione wystarczy w konsoli sprawdzić czy widzisz prefix .venv. Jeżeli się nie pokazuje wymagane będzie jego aktywowanie lub utworzenie*
+
+
+Upewnij się, że masz zainstalowanego Pythona w wersji 3.10 lub nowszej i system go widzi 
+*(windows domyślnie może nie widzieć Pythona w systemie, wtedy moze być wymagane ręczne dodanie ścieżki do zmiennych systemowych)*
 
 ```bash
 python --version
 ```
-### 4. Utwórz środowisko wirtualne (opcjonalnie, ale zalecane)
 
-Jeśli nie masz jeszcze utworzonego środowiska wirtualnego, warto zrobić je przed instalacją bibliotek.  
-Dzięki temu wszystkie pakiety zainstalują się tylko dla tego projektu, a nie globalnie w systemie.
+### Tworzenie środowiska wirtualnego
 
 #### Windows
 
@@ -130,7 +142,7 @@ source .venv/bin/activate
 Po aktywacji środowiska przejdz do podfolderu z plikami tego warsztatu
 
 ```bash
-cd 1\ Wprowadzenie\ do\ lokalnych\ LLM\ z\ Ollamą/
+cd '1\ Wprowadzenie\ do\ lokalnych\ LLM\ z\ Ollamą/'
 ```
 Następnie, będąc w folderze z repozytorium, uruchom:
 
@@ -138,7 +150,7 @@ Następnie, będąc w folderze z repozytorium, uruchom:
 pip install -r requirements.txt
 ```
 
-### 5. Uruchom Jupytera
+### 5. Uruchom Jupytera 
 
 W terminalu wpisz:
 
@@ -175,4 +187,4 @@ Warsztaty zostały przygotowane przez członków koła naukowego **AIpaka**:
 
 ## Wersja
 
-1.0
+1.1
