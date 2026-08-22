@@ -1,184 +1,248 @@
-# 🦙 Wprowadzenie do lokalnych LLM z Ollamą
+# 🦙 Warsztat 1 — Wprowadzenie do lokalnych LLM z Ollamą
 
-Praktyczne warsztaty, podczas których uruchomisz model AI lokalnie na swoim komputerze. Bez chmury, bez kluczy API i bez dodatkowych opłat — po prostu własny model działający u Ciebie.
+Praktyczne warsztaty, podczas których uruchomisz model AI **lokalnie na swoim komputerze**. Bez chmury i bez kluczy API — model będzie działał bezpośrednio na Twoim urządzeniu.
 
-Jeśli chcesz najpierw zrozumieć, czym są LLM-y i jak działają, zajrzyj do **prezentacji** dostępnej w repozytorium.
+Przed rozpoczęciem upewnij się, że wykonałeś **Warsztat 0 — Przygotowanie środowiska**. Znajdziesz tam instalację Pythona, Jupytera, opis IDE oraz konfigurację środowiska wirtualnego.
 
-## 🎯 Cel warsztatów
+Jeśli chcesz najpierw zrozumieć, czym są LLM-y i jak działają, zajrzyj również do prezentacji dostępnej w materiałach warsztatowych.
 
-Podczas warsztatów:
+---
+
+## 🎯 Cel warsztatu
+
+Podczas warsztatu:
 
 - zobaczysz, jak działa lokalny model językowy,
 - nauczysz się pisać skuteczniejsze prompty,
-- sprawdzisz, gdzie AI radzi sobie dobrze, a gdzie potrafi się pomylić,
-- połączysz model z Pythonem i napiszesz prosty skrypt korzystający z AI.
+- sprawdzisz, gdzie AI radzi sobie dobrze, a gdzie może się pomylić,
+- połączysz model z Pythonem,
+- napiszesz prosty kod korzystający z lokalnego AI.
 
-## 📋 Plan warsztatów
+---
+
+## 📋 Plan warsztatu
 
 ### Notatnik 1 — rozmowa z AI bez pisania kodu
 
-W pierwszej części będziesz korzystać z modelu bezpośrednio z terminala lub przeglądarki. Dzięki temu zobaczysz:
+W pierwszej części będziesz korzystać z modelu bezpośrednio z terminala lub przeglądarki. Sprawdzisz między innymi:
 
 - jak zadawać lepsze i gorsze pytania,
 - jak rozpoznawać błędy i halucynacje modelu,
-- jak nadawać modelowi rolę, na przykład rekrutera IT albo nauczyciela.
+- jak nadawać modelowi określoną rolę, np. rekrutera IT albo nauczyciela.
 
 ### Notatnik 2 — AI + Python
 
-W drugiej części połączysz się z modelem z poziomu Pythona. Zobaczysz między innymi:
+W drugiej części połączysz się z modelem z poziomu Pythona. Zobaczysz:
 
-- jak wysłać zapytanie do modelu z poziomu kodu,
-- jak odbierać odpowiedzi programistycznie,
-- jak wymusić zwrot odpowiedzi w formacie JSON, co przydaje się w aplikacjach.
+- jak wysłać zapytanie do modelu z kodu,
+- jak programistycznie odebrać odpowiedź,
+- jak wymusić odpowiedź w formacie JSON przydatnym w aplikacjach.
 
-## 🚀 Jak zacząć
+---
 
-### 1. Pobierz repozytorium
+# 🚀 Uruchomienie warsztatu
 
-Możesz pobrać projekt jako plik ZIP, klikając zielony przycisk **Code → Download ZIP**, a następnie wypakować go w dowolnym miejscu.
+## 1. Przejdź do folderu warsztatu
 
-Jeśli wolisz terminal, użyj:
+Po pobraniu repozytorium przejdź do katalogu:
 
-```bash
-git clone https://github.com/AIpakaCharlie/workshops
+```text
+1 Wprowadzenie do lokalnych LLM z Ollamą
 ```
 
-### 2. Zainstaluj Ollamę
+W terminalu możesz użyć: 
 
-Ollama to narzędzie, które pozwala pobierać i uruchamiać modele AI lokalnie na komputerze.
+```bash
+cd "1 Wprowadzenie do lokalnych LLM z Ollamą"
+```
 
-#### Windows
 
-Pobierz instalator i przejdź przez standardowy proces instalacji:
+---
+
+## 2. Zainstaluj Ollamę
+
+**Ollama** pozwala pobierać i uruchamiać modele językowe lokalnie na komputerze.
+
+### Windows
+
+Najwygodniej zainstalować Ollamę przez WinGet:
+
+```powershell
+winget install --id Ollama.Ollama -e
+```
+
+Alternatywnie możesz pobrać instalator ze strony:
 
 [https://ollama.com/download/windows](https://ollama.com/download/windows)
 
-lub W PowerShell uruchom:
+### macOS
 
-```bash
-irm https://ollama.com/install.ps1 | iex
-```
+Pobierz aplikację:
 
-#### macOS
+[https://ollama.com/download/mac](https://ollama.com/download/mac)
 
+Po instalacji uruchom Ollamę.
 
+### Linux
 
-#### Linux & macOS
-
-W terminalu uruchom:
+W terminalu wykonaj:
 
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 
-W przypadku macOS również dostępny jest instalator:
+---
 
-[https://ollama.com/download/mac](https://ollama.com/download/mac)
+## 3. Pobierz model Gemma 4
 
-Następnie przenieś ją do folderu `Applications` i uruchom.
-
-### 3. Pobierz model
-
-Po zainstalowaniu Ollamy otwórz terminal i wpisz:
+W terminalu wpisz:
 
 ```bash
 ollama pull gemma4:e4b
 ```
 
-Pobranie może potrwać kilka minut. Model waży kilka GB, ale wystarczy zrobić to tylko raz.
+Model ma kilka GB, więc pierwsze pobieranie może potrwać chwilę. Ten krok wykonujesz tylko raz.
 
-Aby sprawdzić, czy wszystko działa poprawnie, uruchom:
+Po zakończeniu sprawdź, czy model działa:
 
 ```bash
 ollama run gemma4:e4b
 ```
 
-Jeśli zobaczysz znak zachęty `>>>`, możesz zacząć rozmowę z modelem. Aby zakończyć, użyj `Ctrl+D`, lub wpisz //bye
+Jeśli pojawi się znak:
 
-### 4. Konfiguracja pythona i uruchamianie notatników
-Jeżeli masz w systemie wgrany notatnik jupyter i bezprośrednio przez niego chcesz uruchamiać pliki, możesz przejść do podpunktu 5
-
-Mozesz sprawdzić czy masz zainstalowany jupiter w systemie:
-```
-jupyter notebook --version
+```text
+>>>
 ```
 
-### 4.1 Tworzenie środowiska wirtualnego (opcjonalnie)
-Jeżeli wolisz uruchamiać notatniki przez środowisko wirtualne lub w swoim IDE to zalecane jest  utworzenie środowistka wirtualnego 
-Dzięki temu wszystkie pakiety zainstalują się tylko dla tego projektu, a nie globalnie w systemie.
+możesz rozpocząć rozmowę z modelem.
 
-*IDE (np. Pycharm) często tworzą automatycznie środowiska wirualne. Aby sprawdzić czy jest zrobione wystarczy w konsoli sprawdzić czy widzisz prefix .venv. Jeżeli się nie pokazuje wymagane będzie jego aktywowanie lub utworzenie*
+Aby zakończyć rozmowę, użyj:
 
+```text
+Ctrl+D
+```
 
-Upewnij się, że masz zainstalowanego Pythona w wersji 3.10 lub nowszej i system go widzi 
-*(windows domyślnie może nie widzieć Pythona w systemie, wtedy moze być wymagane ręczne dodanie ścieżki do zmiennych systemowych)*
+lub wpisz:
+
+```text
+/bye
+```
+
+---
+
+## 4. Zainstaluj biblioteki wymagane przez warsztat
+
+Będąc w folderze warsztatu i mając aktywne środowisko `.venv`, uruchom:
+
+### Windows
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+### macOS / Linux
 
 ```bash
-python --version
+python3 -m pip install -r requirements.txt
 ```
 
-### Tworzenie środowiska wirtualnego
+---
 
-#### Windows
+## 5. Uruchom materiały warsztatowe
 
-```bash
-#utworzenie (jednorazowe) 
-python -m venv .venv
-
-#aktywacja
-.venv\Scripts\activate
-```
-
-#### macOS / Linux
-
-```bash
-#utworzenie (jednorazowe) 
-python3 -m venv .venv
-
-#aktywacja
-source .venv/bin/activate
-```
-
-Po aktywacji środowiska przejdz do podfolderu z plikami tego warsztatu
-
-```bash
-cd '1\ Wprowadzenie\ do\ lokalnych\ LLM\ z\ Ollamą/'
-```
-Następnie, będąc w folderze z repozytorium, uruchom:
-
-```bash
-pip install -r requirements.txt
-```
-
-### 5. Uruchom Jupytera 
-
-W terminalu wpisz:
+Uruchom Jupyter Notebook:
 
 ```bash
 jupyter notebook
 ```
 
-Po chwili w przeglądarce otworzy się Jupyter. Wybierz plik `Notatnik1.ipynb` i możesz zaczynać.
+Następnie otwórz:
 
-## 📁 Zawartość projektu
+```text
+Notatnik1.ipynb
+```
 
-- `Notatnik1.ipynb` — ćwiczenia z korzystania z AI bez pisania kodu
-- `Notatnik2.ipynb` — ćwiczenia z użyciem AI w Pythonie
-- `artykul_llm.txt` — plik tworzony w trakcie pracy z pierwszym notatnikiem
-- `requirements.txt` — lista bibliotek potrzebnych do uruchomienia projektu
+Po wykonaniu pierwszej części przejdź do:
 
-## ✅ Wymagania
+```text
+Notatnik2.ipynb
+```
 
-Do udziału w warsztatach potrzebujesz:
+---
 
-- komputera z systemem Windows, macOS lub Linux,
-- zainstalowanej Ollamy,
-- Pythona w wersji co najmniej 3.10,
-- połączenia z internetem na etapie pobierania repozytorium i modelu.
+# ✅ Szybki test przed rozpoczęciem
 
-## 👥 Autorzy
+Sprawdź, czy Ollama działa:
 
-Warsztaty zostały przygotowane przez członków koła naukowego **AIpaka**:
+```bash
+ollama --version
+```
+
+Następnie sprawdź model:
+
+```bash
+ollama run gemma4:e4b
+```
+
+Jeśli model się uruchamia, możesz rozpocząć warsztat.
+
+---
+
+# 🧯 Najczęstsze problemy
+
+## `ollama` nie jest rozpoznawana
+
+Po instalacji zamknij i ponownie otwórz terminal.
+
+Jeśli problem nadal występuje, uruchom ponownie system i sprawdź:
+
+```bash
+ollama --version
+```
+
+## Model nie jest pobrany
+
+Uruchom:
+
+```bash
+ollama pull gemma4:e4b
+```
+
+## Notebook nie może połączyć się z Ollamą
+
+Najpierw sprawdź, czy model uruchamia się bezpośrednio z terminala:
+
+```bash
+ollama run gemma4:e4b
+```
+
+Jeśli nie, problem dotyczy konfiguracji Ollamy, a nie notebooka.
+
+---
+
+# 📁 Pliki warsztatu
+
+- `Notatnik1.ipynb` — ćwiczenia z korzystania z AI bez pisania kodu,
+- `Notatnik2.ipynb` — ćwiczenia z użyciem AI w Pythonie,
+- `artykul_llm.txt` — plik wykorzystywany podczas pracy z pierwszym notebookiem,
+- `requirements.txt` — biblioteki wymagane przez warsztat.
+
+---
+
+# ✅ Wymagania
+
+Przed rozpoczęciem powinieneś mieć przygotowane środowisko zgodnie z **Warsztatem 0** oraz:
+
+- zainstalowaną Ollamę,
+- dostęp do internetu podczas pobierania modelu i bibliotek,
+- kilka GB wolnego miejsca na model.
+
+---
+
+# 👥 Autorzy
+
+Warsztat został przygotowany przez członków Studenckiego Koła Naukowego **AIpaka**:
 
 - Jakub Mielcarek
 - Jakub Szczerbiński
@@ -187,4 +251,4 @@ Warsztaty zostały przygotowane przez członków koła naukowego **AIpaka**:
 
 ## Wersja
 
-1.1
+**1.1.5**
