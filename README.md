@@ -4,6 +4,7 @@
 
 Repozytorium edukacyjne **Studenckiego Koła Naukowego AIpaka**.
 
+<div align="center">
 <p>
   <img alt="Workshopy: 2" src="https://img.shields.io/badge/workshopy-2-6f42c1">
   <img alt="Język: polski" src="https://img.shields.io/badge/j%C4%99zyk-polski-dc143c">
@@ -135,8 +136,15 @@ Wśród autorów znajdują się między innymi:
 - Jakub Mielcarek,
 - Jakub Szczerbiński,
 - Marta Machacka,
+- Kacper Boś ([bos-8](https://github.com/bos-8)),
 - AIpaka Charlie AIpacino.
 
+## Contributorzy
+<div align="center">
+  <a href="https://github.com/AIpakaCharlie/workshops/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=AIpakaCharlie/workshops" alt="Contributors" />
+  </a>
+</div>
 ---
 
 <div align="center">
