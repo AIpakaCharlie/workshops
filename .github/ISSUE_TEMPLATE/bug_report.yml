@@ -1,0 +1,106 @@
+name: Zgłoszenie błędu
+description: Zgłoś powtarzalny problem w workshopie, notebooku, kodzie lub dokumentacji.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Dziękujemy za zgłoszenie. Podatności bezpieczeństwa zgłaszaj prywatnie zgodnie z [SECURITY.md](https://github.com/AIpakaCharlie/workshops/blob/master/SECURITY.md), a naruszenia zasad społeczności zgodnie z [CODE_OF_CONDUCT.md](https://github.com/AIpakaCharlie/workshops/blob/master/CODE_OF_CONDUCT.md).
+
+  - type: dropdown
+    id: workshop
+    attributes:
+      label: Workshop lub obszar
+      description: Wybierz miejsce występowania problemu.
+      options:
+        - 101 — Wprowadzenie do lokalnych LLM z Ollamą
+        - 302 — Lokalne TTS z Supertonic 3
+        - Dokumentacja główna repozytorium
+        - Inny obszar
+    validations:
+      required: true
+
+  - type: input
+    id: file
+    attributes:
+      label: Plik lub ścieżka
+      description: Podaj możliwie dokładną ścieżkę do pliku, notebooka albo endpointu.
+      placeholder: 302-tts-supertonic/03-supertonic-zaawansowany-i-serwer.ipynb
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Opis problemu
+      description: Napisz, co nie działa i jaki jest wpływ problemu.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Kroki odtworzenia
+      description: Podaj minimalną, powtarzalną sekwencję kroków.
+      placeholder: |
+        1. Otwórz...
+        2. Uruchom...
+        3. Zobacz błąd...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Oczekiwane zachowanie
+      description: Co powinno się wydarzyć?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Rzeczywiste zachowanie
+      description: Co wydarzyło się zamiast oczekiwanego rezultatu?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: System operacyjny
+      options:
+        - Windows
+        - Linux
+        - macOS
+        - Inny
+    validations:
+      required: true
+
+  - type: input
+    id: versions
+    attributes:
+      label: Wersje narzędzi
+      description: Podaj istotne wersje, np. Python, Node.js, Ollama, Supertonic i przeglądarkę.
+      placeholder: Python 3.13, Supertonic 1.3.1, Windows 11
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logi i dodatkowy kontekst
+      description: Wklej krótki, zanonimizowany komunikat błędu. Usuń sekrety i dane prywatne.
+      render: shell
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Potwierdzenia
+      options:
+        - label: Sprawdziłem aktualną gałąź `master` i wyszukałem podobne issue.
+          required: true
+        - label: To zgłoszenie nie zawiera sekretów, tokenów ani danych osobowych.
+          required: true
+        - label: To nie jest nieujawniona podatność bezpieczeństwa.
+          required: true

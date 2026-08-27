@@ -205,6 +205,11 @@ cython_debug/
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
 
+# Supertonic workshop runtime artifacts
+302-tts-supertonic/outputs/
+302-tts-supertonic/generated_audio/
+302-tts-supertonic/server/server.log
+
 # Ruff stuff:
 .ruff_cache/
 

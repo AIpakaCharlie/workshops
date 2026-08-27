@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="pl" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Warsztatowy interfejs do lokalnej syntezy mowy z Supertonic 3."
+    />
+    <title>Supertonic 3 — lokalne TTS</title>
+    <link rel="stylesheet" href="./style.css?v=20260828-1" />
+    <script src="./scripts.js?v=20260828-1" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="navbar" aria-label="Główna nawigacja">
+        <a class="brand" href="#main-content" aria-label="Supertonic TTS — strona główna">
+          <span class="brand-mark" aria-hidden="true">ST</span>
+          <span>
+            <strong>Supertonic 3</strong>
+            <small>Lokalne TTS</small>
+          </span>
+        </a>
+
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          type="button"
+          aria-label="Włącz ciemny motyw"
+          aria-pressed="false"
+        >
+          <span class="theme-icon" aria-hidden="true">☾</span>
+          <span class="theme-label">Ciemny motyw</span>
+        </button>
+      </nav>
+    </header>
+
+    <main id="main-content" class="page-shell">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">Warsztat Python + AI</p>
+        <h1 id="page-title">Zamień tekst na mowę</h1>
+        <p>
+          Wybierz język i głos, wpisz tekst, a następnie odtwórz go bez zapisywania
+          albo utwórz plik WAV do pobrania.
+        </p>
+      </section>
+
+      <section class="tts-tool" aria-labelledby="generator-title">
+        <div class="section-heading">
+          <div>
+            <p class="step-label">Generator</p>
+            <h2 id="generator-title">Ustawienia syntezy</h2>
+          </div>
+          <div class="status-badges" aria-label="Status aplikacji">
+            <span class="local-badge">Działa lokalnie</span>
+            <span
+              id="api-health-badge"
+              class="health-badge is-checking"
+              role="status"
+              aria-live="polite"
+            >
+              <span class="health-dot" aria-hidden="true"></span>
+              <span id="api-health-label">Sprawdzanie API…</span>
+            </span>
+          </div>
+        </div>
+
+        <div id="api-health-message" class="health-message" role="alert" hidden>
+          <div>
+            <strong>Serwer TTS nie działa poprawnie.</strong>
+            <p id="api-health-details">
+              Nie udało się uzyskać odpowiedzi z endpointu <code>GET /health</code>.
+            </p>
+          </div>
+          <button id="health-retry-button" class="health-retry" type="button">
+            Sprawdź ponownie
+          </button>
+        </div>
+
+        <form id="tts-form" novalidate>
+          <div class="select-grid">
+            <div class="field">
+              <label for="voice">Głos</label>
+              <select id="voice" name="voice">
+                <optgroup label="Głosy żeńskie">
+                  <option value="F1">F1</option>
+                  <option value="F2" selected>F2</option>
+                  <option value="F3">F3</option>
+                  <option value="F4">F4</option>
+                  <option value="F5">F5</option>
+                </optgroup>
+                <optgroup label="Głosy męskie">
+                  <option value="M1">M1</option>
+                  <option value="M2">M2</option>
+                  <option value="M3">M3</option>
+                  <option value="M4">M4</option>
+                  <option value="M5">M5</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="language">Język</label>
+              <select id="language" name="language">
+                <option value="pl" selected>Polski (PL)</option>
+                <option value="en">English (EN)</option>
+                <option value="de">Deutsch (DE)</option>
+                <option value="fr">Français (FR)</option>
+                <option value="es">Español (ES)</option>
+                <option value="it">Italiano (IT)</option>
+                <option value="pt">Português (PT)</option>
+                <option value="ko">한국어 (KO)</option>
+                <option value="ja">日本語 (JA)</option>
+                <option value="na">Automatyczny / neutralny (NA)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field text-field">
+            <div class="label-row">
+              <label for="text">Tekst do przeczytania</label>
+              <output id="character-count" for="text">0 / 1000</output>
+            </div>
+            <textarea
+              id="text"
+              name="text"
+              rows="7"
+              maxlength="1000"
+              placeholder="Wpisz tekst, który ma przeczytać Supertonic…"
+              aria-describedby="text-hint text-error"
+              required
+            ></textarea>
+            <div class="field-footer">
+              <span id="text-hint">Spróbuj liczb, skrótów i różnych znaków interpunkcyjnych.</span>
+              <span id="text-error" class="field-error" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="actions" aria-label="Akcje syntezy">
+            <button id="preview-button" class="button button-primary" type="submit">
+              <span aria-hidden="true">▶</span>
+              Wygeneruj i odtwórz
+            </button>
+            <button id="file-button" class="button button-secondary" type="button">
+              Utwórz plik WAV
+            </button>
+            <a
+              id="download-button"
+              class="button button-ghost is-disabled"
+              href="#"
+              download
+              aria-disabled="true"
+            >
+              Pobierz WAV
+            </a>
+          </div>
+        </form>
+
+        <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+
+        <section id="player-panel" class="player-panel" aria-labelledby="player-title" hidden>
+          <div>
+            <p class="step-label">Podgląd</p>
+            <h2 id="player-title">Wygenerowany dźwięk</h2>
+          </div>
+          <audio id="audio-player" controls preload="metadata">
+            Twoja przeglądarka nie obsługuje odtwarzacza audio.
+          </audio>
+        </section>
+      </section>
+
+      <section
+        id="audio-library"
+        class="file-explorer"
+        aria-labelledby="library-title"
+        aria-busy="true"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="step-label">Pliki na serwerze</p>
+            <h2 id="library-title">Explorer nagrań</h2>
+          </div>
+          <div class="explorer-toolbar">
+            <div class="folder-filter">
+              <label for="library-folder-filter">Folder</label>
+              <select id="library-folder-filter" disabled>
+                <option value="all">Wszystkie foldery</option>
+                <option value="outputs" selected>outputs</option>
+                <option value="generated_audio">generated_audio</option>
+              </select>
+            </div>
+            <button
+              id="library-refresh"
+              class="button button-ghost compact-button"
+              type="button"
+              disabled
+            >
+              <span aria-hidden="true">↻</span>
+              Odśwież
+            </button>
+          </div>
+        </div>
+
+        <div id="library-loading" class="explorer-loading" role="status" aria-live="polite">
+          <span class="throbber" aria-hidden="true"></span>
+          Łączenie z serwerem…
+        </div>
+        <div id="library-status" class="explorer-status" role="status" aria-live="polite"></div>
+        <div id="audio-folders" class="audio-folders"></div>
+
+        <section id="library-player" class="library-player" aria-labelledby="library-player-title" hidden>
+          <div class="library-player-heading">
+            <div>
+              <p class="step-label">Teraz odtwarzane</p>
+              <h3 id="library-player-title">Wybierz plik z listy</h3>
+            </div>
+            <span id="player-throbber" class="throbber" aria-label="Wczytywanie dźwięku" hidden></span>
+          </div>
+
+          <audio id="library-audio" preload="metadata"></audio>
+          <div class="playback-controls">
+            <button id="playback-toggle" class="button button-primary compact-button" type="button">
+              <span aria-hidden="true">▶</span>
+              <span class="playback-toggle-label">Odtwórz</span>
+            </button>
+
+            <div class="progress-control">
+              <label class="visually-hidden" for="playback-progress">Pozycja nagrania</label>
+              <input
+                id="playback-progress"
+                type="range"
+                min="0"
+                max="0"
+                value="0"
+                step="0.01"
+                disabled
+              />
+              <output id="playback-time" for="playback-progress">0:00 / 0:00</output>
+            </div>
+
+            <div class="speed-control">
+              <label for="playback-speed">Tempo</label>
+              <select id="playback-speed">
+                <option value="0.75">0,75× wolniej</option>
+                <option value="1" selected>1× normalnie</option>
+                <option value="1.25">1,25× szybciej</option>
+                <option value="1.5">1,5× szybciej</option>
+                <option value="2">2× szybciej</option>
+              </select>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <aside class="mode-info" aria-labelledby="modes-title">
+        <h2 id="modes-title">Dwa tryby pracy</h2>
+        <div class="mode-grid">
+          <article>
+            <span class="mode-number">01</span>
+            <h3>Odtwarzanie bez zapisu</h3>
+            <p>Dźwięk wraca z API do pamięci przeglądarki i nie jest zapisywany na dysku serwera.</p>
+          </article>
+          <article>
+            <span class="mode-number">02</span>
+            <h3>Plik do pobrania</h3>
+            <p>API tworzy plik WAV, a interfejs udostępnia aktywny przycisk pobierania.</p>
+          </article>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <p>Materiał warsztatowy AIpaka · Supertonic 3 uruchamiany lokalnie</p>
+    </footer>
+  </body>
+</html>

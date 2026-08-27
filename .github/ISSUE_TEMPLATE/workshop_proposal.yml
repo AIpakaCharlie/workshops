@@ -1,0 +1,110 @@
+name: Propozycja workshopu
+description: Zaproponuj nowy workshop wraz z poziomem trudności i kodem DNN.
+title: "[Workshop]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Przed wysłaniem sprawdź [README.md](https://github.com/AIpakaCharlie/workshops/blob/master/README.md), [TODO.md](https://github.com/AIpakaCharlie/workshops/blob/master/TODO.md) oraz [CONTRIBUTING.md](https://github.com/AIpakaCharlie/workshops/blob/master/CONTRIBUTING.md). Ostateczny numer i zakres zatwierdzają maintainerzy.
+
+  - type: input
+    id: topic
+    attributes:
+      label: Nazwa i temat workshopu
+      placeholder: Lokalny OCR dokumentów
+    validations:
+      required: true
+
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: Proponowany poziom trudności
+      description: Pierwsza cyfra kodu DNN.
+      options:
+        - 0/9 — materiał zerowy
+        - 1/9 — wprowadzenie
+        - 2/9 — podstawowy
+        - 3/9 — podstawowy plus
+        - 4/9 — średni
+        - 5/9 — średniozaawansowany
+        - 6/9 — zaawansowany
+        - 7/9 — bardzo zaawansowany
+        - 8/9 — ekspercki
+        - 9/9 — najbardziej zaawansowany
+    validations:
+      required: true
+
+  - type: input
+    id: folder
+    attributes:
+      label: Proponowany kod i folder DNN
+      description: Użyj kolejnego numeru workshopu; ostateczny kod zatwierdzają maintainerzy.
+      placeholder: 303-ocr-dokumentow
+    validations:
+      required: true
+
+  - type: textarea
+    id: audience
+    attributes:
+      label: Odbiorcy i wymagania wstępne
+      description: Dla kogo jest workshop i co uczestnik powinien już umieć lub mieć zainstalowane?
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Cel i działający rezultat
+      description: Opisz konkretny rezultat końcowy, który uczestnik uruchomi lub utworzy.
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcomes
+    attributes:
+      label: Kompetencje uczestnika
+      description: Wymień mierzalne umiejętności zdobywane po ukończeniu workshopu.
+    validations:
+      required: true
+
+  - type: textarea
+    id: plan
+    attributes:
+      label: Proponowany plan
+      description: Podaj kolejne notebooki, ćwiczenia albo etapy od przygotowania do sprzątania.
+      placeholder: |
+        01 — przygotowanie środowiska
+        02 — podstawy
+        03 — integracja
+        04 — zadanie HARD
+        05 — sprzątanie
+    validations:
+      required: true
+
+  - type: textarea
+    id: tooling
+    attributes:
+      label: Narzędzia, dane i źródła
+      description: Wymień zależności, modele, przykładowe dane, linki źródłowe i ograniczenia licencyjne.
+    validations:
+      required: true
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Plan walidacji
+      description: Jak zostanie potwierdzone, że rezultat działa lokalnie i jest powtarzalny?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Potwierdzenia
+      options:
+        - label: Sprawdziłem README, TODO i istniejące propozycje, aby uniknąć duplikatu.
+          required: true
+        - label: Rozumiem, że maintainerzy mogą zmienić numer DNN, zakres lub kolejność workshopu.
+          required: true
+        - label: Materiały i dane będą miały jasne źródła oraz warunki użycia.
+          required: true
