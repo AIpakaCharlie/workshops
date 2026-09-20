@@ -205,6 +205,11 @@ cython_debug/
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
 
+# Supertonic workshop runtime artifacts
+301-podstawy-tts/outputs/
+301-podstawy-tts/generated_audio/
+301-podstawy-tts/server/server.log
+
 # Ruff stuff:
 .ruff_cache/
 
@@ -218,3 +223,4 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+101-wprowadzenie-do-uczenia-maszynowego/models/

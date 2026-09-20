@@ -35,23 +35,6 @@ Otwórz **PowerShell** i uruchom:
 winget install --id Python.Python.3.14 -e
 ```
 
-Po zakończeniu instalacji zamknij i ponownie otwórz PowerShell, a następnie sprawdź wersję:
-
-```powershell
-python --version
-```
-
-Powinieneś zobaczyć informację podobną do:
-
-```text
-Python 3.14.x
-```
-
-Jeśli polecenie `python` nie działa, spróbuj:
-
-```powershell
-py --version
-```
 
 > Jeśli `winget` nie jest dostępny, możesz również pobrać instalator Pythona ręcznie ze strony [python.org](https://www.python.org/downloads/).
 
@@ -85,6 +68,30 @@ Przykład dla Ubuntu/Debiana:
 sudo apt update
 sudo apt install python3 python3-pip python3-venv
 ```
+
+---
+
+## Walidacja instalacji
+
+
+Po zakończeniu instalacji zamknij i ponownie otwórz PowerShell, a następnie sprawdź wersję:
+
+```powershell
+python --version
+```
+
+Powinieneś zobaczyć informację podobną do:
+
+```text
+Python 3.14.x
+```
+
+Jeśli polecenie `python` nie działa, spróbuj:
+
+```powershell
+py --version
+```
+
 
 ---
 
@@ -195,7 +202,7 @@ Po aktywacji na początku linii terminala zwykle pojawi się informacja podobna 
 
 Kod w Pythonie można pisać na kilka sposobów. Podczas warsztatów będziemy korzystać głównie z **Jupytera**, ponieważ pozwala uruchamiać kod krok po kroku w osobnych komórkach i od razu obserwować wyniki.
 
-Kod można jednak również zapisywać w zwykłych plikach `.py` i uruchamiać je z terminala:
+Kod można jednak również zapisywać w zwykłych plikach `.py` i uruchamiać je z terminala np:
 
 ```bash
 python program.py
@@ -258,8 +265,8 @@ Po przygotowaniu środowiska przejdź do kolejnego folderu w repozytorium.
 
 Pierwszy właściwy warsztat to:
 
-## Warsztat 1 — Wprowadzenie do lokalnych LLM z Ollamą
+## Warsztat 101 - Wprowadzenie do uczenia maszynowego
 
-W jego README znajdziesz już tylko instrukcje potrzebne do uruchomienia konkretnego warsztatu.
+Potem przejdź do `102-wprowadzenie-do-ollamy`, jeśli chcesz kontynuować ścieżkę lokalnych modeli językowych. W README każdego warsztatu znajdziesz instrukcje potrzebne do uruchomienia konkretnego materiału.
 
 ---
